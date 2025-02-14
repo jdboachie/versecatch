@@ -1,20 +1,24 @@
 'use server'
-
 import { HfInference } from "@huggingface/inference";
 
-
-
 export const transcribeAudio = async (arrayBuffer: ArrayBuffer) => {
-    console.log('whisper whisper')
-    const inference = new HfInference('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');
+    try {
+        console.log("whisper whisper");
 
-    const res = await inference.automaticSpeechRecognition({
-      model: 'openai/whisper-large-v3-turbo',
-      data: arrayBuffer,
-      provider: "hf-inference",
-    }).then((res) => {
-        return res
-    })
+        const inference = new HfInference(process.env.HF_API_KEY!);
 
-    return res
-  }
+        // Convert ArrayBuffer to Blob
+        const blob = new Blob([arrayBuffer], { type: 'audio/wav' });
+
+        const res = await inference.automaticSpeechRecognition({
+          model: "openai/whisper-large-v3-turbo",
+          data: blob,
+          provider: "hf-inference",
+        });
+
+        return res;
+    } catch (error) {
+        console.error("Transcription failed:", error);
+        throw error;
+    }
+}

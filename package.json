@@ -12,6 +12,7 @@
     "@huggingface/inference": "^3.3.3",
     "@radix-ui/react-icons": "^1.3.2",
     "@radix-ui/react-slot": "^1.1.2",
+    "@radix-ui/react-toast": "^1.2.6",
     "class-variance-authority": "^0.7.1",
     "lucide-react": "^0.475.0",
     "next": "15.1.7",
